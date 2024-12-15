@@ -144,3 +144,44 @@ nav a:hover {
     opacity: 1;
   }
 }
+
+/* إضافة بعض التنسيقات لتصميم الصفحة */
+#developerPage {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#developerPage input, #developerPage textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+#developerPage button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#developerPage button:hover {
+  background-color: #0056b3;
+}
+
+#uploadForm {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+#successMessage {
+  color: green;
+  margin-top: 10px;
+}
