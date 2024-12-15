@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MangaVerse</title>
-  <link rel="stylesheet" href="styles.css"> <!-- ربط ملف الـ CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
@@ -21,10 +21,11 @@
 
   <div class="container" id="mainContainer">
     <div id="homePage">
-      <h2>مرحبًا بك في MangaVerse</h2>
+      <h2>مرحبًا <span id="userName">بك في MangaVerse</span></h2>
       <p>تابع أحدث الفصول وتفاعل مع القراء الآخرين.</p>
     </div>
 
+    <!-- صفحة تسجيل الحساب -->
     <div id="registerPage" class="hidden">
       <div class="form-container">
         <h2>تسجيل حساب جديد</h2>
@@ -41,6 +42,7 @@
       </div>
     </div>
 
+    <!-- صفحة تسجيل الدخول -->
     <div id="loginPage" class="hidden">
       <div class="form-container">
         <h2>تسجيل الدخول</h2>
@@ -54,6 +56,7 @@
       </div>
     </div>
 
+    <!-- صفحة الملف الشخصي -->
     <div id="profilePage" class="hidden">
       <h2>ملفي الشخصي</h2>
       <div>
@@ -62,22 +65,30 @@
       </div>
       <div>
         <label>اسم المستخدم: </label>
-        <input type="text" id="nickname" placeholder="اسم المستخدم">
+        <input type="text" id="nickname" placeholder="اسم المستخدم" onchange="updateUserName()">
         <button class="btn" onclick="saveProfile()">حفظ التغييرات</button>
       </div>
     </div>
 
-    <!-- خانة التعليقات (الدردشة) -->
+    <!-- خانة التعليقات -->
     <div id="commentsPage" class="hidden">
       <h2>التعليقات</h2>
       <div id="chatBox" class="chat-box">
         <!-- الرسائل ستظهر هنا -->
       </div>
+      <div>
+        <label>اختر اسمك:</label>
+        <input type="text" id="commentName" placeholder="اسم المستخدم" onchange="updateUserName()">
+      </div>
+      <div>
+        <label>اختر صورة:</label>
+        <input type="file" id="commentImage" onchange="updateProfileImage()">
+      </div>
       <textarea id="newComment" placeholder="اكتب تعليقك هنا..."></textarea>
       <button onclick="postComment()">نشر التعليق</button>
     </div>
 
-    <!-- خانة تحميل الفصول (سيتم إظهارها بعد التحقق من كلمة المرور) -->
+    <!-- خانة تحميل الفصول -->
     <div id="developerPage" class="hidden">
       <h2>مرحبا بك في صفحة المطورين</h2>
       <p>يرجى إدخال كلمة المرور للوصول إلى صفحة تحميل الفصول.</p>
@@ -94,6 +105,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script> <!-- ربط ملف الـ JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
