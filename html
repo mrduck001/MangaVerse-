@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaVerse</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Navbar with hamburger menu -->
+    <nav>
+        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <ul id="navMenu">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#manga">عرض المانجا</a></li>
+            <li><a href="#login">تسجيل / دخول</a></li>
+            <li><a href="#upload">رفع فصل جديد</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <section id="home">
+        <h1>مرحبًا في MangaVerse</h1>
+    </section>
+
+    <!-- Developer Page with Password Protection -->
+    <section id="upload" class="protected">
+        <h2>مرحبا بالرسامين!</h2>
+        <form id="devForm">
+            <label for="mangaName">اسم المانجا</label>
+            <input type="text" id="mangaName" required>
+
+            <label for="chapterNumber">رقم الفصل</label>
+            <input type="text" id="chapterNumber" required>
+
+            <label for="fileUpload">رفع الصور</label>
+            <input type="file" id="fileUpload" multiple required>
+
+            <button type="submit">رفع الفصل</button>
+        </form>
+    </section>
+</body>
+</html>
