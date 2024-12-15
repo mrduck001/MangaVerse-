@@ -1,46 +1,73 @@
 // ملف: scripts.js
 
-// التبديل بين الصفحات
+// عرض الصفحة المطلوبة فقط
 function showPage(pageId) {
   const pages = document.querySelectorAll('.page');
-  pages.forEach(page => page.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
+  pages.forEach(page => {
+    page.classList.remove('active');
+    if (page.id === pageId) {
+      page.classList.add('active');
+    }
+  });
 }
 
-// التحقق من صحة التسجيل
-document.getElementById('registerForm').addEventListener('submit', function(e) {
+// التحقق من التسجيل
+document.getElementById('registerForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
   if (password !== confirmPassword) {
     alert('كلمتا المرور غير متطابقتين!');
-  } else {
-    alert('تم التسجيل بنجاح!');
-    showPage('home');
+    return;
   }
+
+  alert('تم التسجيل بنجاح!');
+  showPage('home');
 });
 
 // تسجيل الدخول
-document.getElementById('loginForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
   alert('تم تسجيل الدخول بنجاح!');
   showPage('home');
 });
 
-// إضافة تعليق
-document.getElementById('commentsForm').addEventListener('submit', function(e) {
+// التعليقات
+document.getElementById('commentsForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const comment = document.getElementById('comment').value;
-  const commentsList = document.getElementById('commentsList');
+  const commentImage = document.getElementById('commentImage').files[0];
 
-  const commentElement = document.createElement('div');
-  commentElement.textContent = comment;
-  commentElement.style.border = '1px solid #ddd';
-  commentElement.style.padding = '10px';
-  commentElement.style.margin = '10px 0';
-  commentElement.style.backgroundColor = '#fff';
+  const commentDiv = document.createElement('div');
+  const commentText = document.createElement('p');
+  commentText.textContent = comment;
 
-  commentsList.appendChild(commentElement);
+  commentDiv.appendChild(commentText);
+
+  if (commentImage) {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(commentImage);
+    img.style.maxWidth = '100px';
+    img.style.borderRadius = '5px';
+    commentDiv.appendChild(img);
+  }
+
+  document.getElementById('commentsList').appendChild(commentDiv);
   document.getElementById('comment').value = '';
+  document.getElementById('commentImage').value = '';
+});
+
+// المطورين
+document.getElementById('developerForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const password = document.getElementById('developerPassword').value;
+
+  if (password !== 'seenf0192') {
+    alert('كلمة المرور غير صحيحة!');
+    return;
+  }
+
+  alert('تم تحميل الفصل بنجاح!');
+  document.getElementById('developerForm').reset();
 });
