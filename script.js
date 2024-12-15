@@ -1,6 +1,10 @@
 let isLoggedIn = false;
 let user = {};
 
+window.onload = function() {
+  checkLoginStatus();
+};
+
 function showHome() {
   hideAll();
   document.getElementById("homePage").style.display = "block";
@@ -62,13 +66,10 @@ function login() {
 
 function updateUI() {
   if (isLoggedIn) {
-    document.getElementById("profileIcon").src = "https://via.placeholder.com/40";
     document.getElementById("profileIcon").style.display = "block";
-    document.getElementById("registerBtn").style.display = "none";
     document.getElementById("loginBtn").style.display = "none";
   } else {
     document.getElementById("profileIcon").style.display = "none";
-    document.getElementById("registerBtn").style.display = "block";
     document.getElementById("loginBtn").style.display = "block";
   }
 }
@@ -79,6 +80,8 @@ function uploadProfileImage() {
     const reader = new FileReader();
     reader.onload = function(e) {
       document.getElementById("profileImage").src = e.target.result;
+      user.profileImage = e.target.result;  // حفظ الصورة في بيانات المستخدم
+      localStorage.setItem("user", JSON.stringify(user));  // تحديث بيانات المستخدم في localStorage
     };
     reader.readAsDataURL(file);
   }
@@ -89,11 +92,8 @@ function saveProfile() {
   user.nickname = nickname;
   localStorage.setItem("user", JSON.stringify(user));
   alert("تم حفظ التغييرات!");
+  updateUI(); // تحديث الواجهة بعد حفظ التغييرات
 }
-
-// حالة تسجيل الدخول
-let isLoggedIn = false;
-let user = {};
 
 // التحقق من كلمة المرور لفتح صفحة المطورين
 function checkPassword() {
@@ -121,28 +121,24 @@ function submitChapter() {
     return;
   }
 
-  // هنا يمكن إضافة كود لتحميل الصور إلى الخادم أو حفظها محليًا
   const reader = new FileReader();
   reader.onload = function (e) {
-    // هنا يمكنك تخزين الفصول في مكان مناسب (مثل قاعدة بيانات أو localStorage مؤقتًا)
     const chapterData = {
       name: chapterName,
       number: chapterNumber,
       description: chapterDescription,
-      file: e.target.result, // حفظ بيانات الملف بشكل مؤقت (في حالة رفعه محليًا)
+      file: e.target.result, 
     };
 
-    // تخزين البيانات في localStorage أو إرسالها إلى الخادم
     localStorage.setItem("chapter_" + chapterNumber, JSON.stringify(chapterData));
 
-    // عرض إشعار بعد تحميل الفصل
     alert("تم تحميل الفصل بنجاح!");
-    document.getElementById("successMessage").textContent = "تم رفع الفصل بنجاح! الفصل الآن متاح للمستخدمين.";
+    document.getElementById("successMessage").textContent = "تم رفع الفصل بنجاح!";
     document.getElementById("successMessage").style.display = "block";
-    
-    // تحديث الصفحة الرئيسية لعرض الفصل الجديد (يمكنك إضافة فصل جديد في الصفحة الرئيسية هنا)
+
+    updateHomePage();  // تحديث الصفحة الرئيسية لعرض الفصل الجديد
   };
-  reader.readAsDataURL(chapterFile); // تحميل الملف من الجهاز
+  reader.readAsDataURL(chapterFile);
 }
 
 // إظهار رسالة النجاح بعد رفع الفصل
@@ -154,9 +150,8 @@ function showSuccessMessage() {
   document.body.appendChild(successMessage);
 }
 
-// تحديث الواجهة لعرض الفصل الجديد
+// تحديث الصفحة الرئيسية لعرض الفصول الجديدة
 function updateHomePage() {
-  // جلب جميع الفصول المخزنة وعرضها للمستخدمين
   const chapterKeys = Object.keys(localStorage);
   chapterKeys.forEach((key) => {
     if (key.startsWith("chapter_")) {
@@ -200,18 +195,8 @@ function checkLoginStatus() {
     isLoggedIn = true;
     user = storedUser;
     updateUI();
+    showHome();  // العودة إلى الصفحة الرئيسية بعد التسجيل
   } else {
-    alert("من فضلك سجل الدخول.");
-  }
-}
-
-// تحديث الواجهة بناءً على حالة تسجيل الدخول
-function updateUI() {
-  if (isLoggedIn) {
-    document.getElementById("profileIcon").style.display = "block";
-    document.getElementById("loginBtn").style.display = "none";
-  } else {
-    document.getElementById("profileIcon").style.display = "none";
-    document.getElementById("loginBtn").style.display = "block";
+    showLogin();  // إظهار صفحة تسجيل الدخول إذا لم يكن هناك حساب مسجل
   }
 }
