@@ -4,41 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MangaVerse</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar with hamburger menu -->
+    <!-- Navbar -->
     <nav>
-        <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
         <ul id="navMenu">
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#manga">عرض المانجا</a></li>
-            <li><a href="#login">تسجيل / دخول</a></li>
-            <li><a href="#upload">رفع فصل جديد</a></li>
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">مانجا</a></li>
+            <li><a href="#">تقييمات</a></li>
+            <li><a href="#" id="devButton">صفحة المطور</a></li>
         </ul>
     </nav>
 
     <!-- Main Content -->
-    <section id="home">
-        <h1>مرحبًا في MangaVerse</h1>
-    </section>
+    <main>
+        <section id="mangaList">
+            <h1>الفصول المرفوعة</h1>
+            <div id="chapters">
+                <p>لا توجد فصول بعد.</p>
+            </div>
+        </section>
+    </main>
 
-    <!-- Developer Page with Password Protection -->
-    <section id="upload" class="protected">
-        <h2>مرحبا بالرسامين!</h2>
-        <form id="devForm">
-            <label for="mangaName">اسم المانجا</label>
-            <input type="text" id="mangaName" required>
+    <!-- صفحة المطور -->
+    <form id="devForm">
+        <button type="submit">دخول صفحة المطور</button>
+    </form>
 
-            <label for="chapterNumber">رقم الفصل</label>
-            <input type="text" id="chapterNumber" required>
-
-            <label for="fileUpload">رفع الصور</label>
-            <input type="file" id="fileUpload" multiple required>
-
+    <div class="protected">
+        <h2>مرحبًا بالرسامين!</h2>
+        <p>يمكنكم رفع فصولكم هنا.</p>
+        <form id="uploadForm">
+            <input type="text" id="mangaName" placeholder="اسم المانجا" required>
+            <input type="number" id="chapterNumber" placeholder="رقم الفصل" required>
+            <input type="file" id="chapterFiles" multiple>
             <button type="submit">رفع الفصل</button>
         </form>
-    </section>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
