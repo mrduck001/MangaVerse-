@@ -6,23 +6,46 @@ function toggleMenu() {
 
 // Protect the Developer Page
 const password = "seenf0192";
-
 document.getElementById('devForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة عند الضغط على الزر
+    event.preventDefault(); // منع إعادة تحميل الصفحة
     
     const enteredPassword = prompt("الرجاء إدخال كلمة السر:");
     
     if (enteredPassword === password) {
-        const protectedSection = document.querySelector('.protected');
-        protectedSection.style.display = 'block'; // إظهار الصفحة المحمية
-        alert("مرحبًا بك! يمكنك الآن رفع الفصول.");
+        document.querySelector('.protected').style.display = 'block'; // إظهار الصفحة المحمية
+        alert("مرحبًا بك في صفحة المطور!");
     } else {
-        alert("كلمة السر غير صحيحة. حاول مرة أخرى!");
+        alert("كلمة السر غير صحيحة.");
     }
 });
 
-// Event Listener for Hamburger Icon
-const hamburger = document.querySelector('.hamburger');
-if (hamburger) {
-    hamburger.addEventListener('click', toggleMenu);
-}
+// Handle Chapter Upload
+document.getElementById('uploadForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // منع إعادة تحميل الصفحة
+    
+    const mangaName = document.getElementById('mangaName').value;
+    const chapterNumber = document.getElementById('chapterNumber').value;
+    const chapterFiles = document.getElementById('chapterFiles').files;
+
+    if (!mangaName || !chapterNumber || chapterFiles.length === 0) {
+        alert("الرجاء إدخال جميع البيانات.");
+        return;
+    }
+
+    const chapterSection = document.getElementById('chapters');
+    chapterSection.innerHTML = ''; // مسح الرسالة القديمة
+    
+    // إنشاء عنصر جديد لعرض الفصل
+    const chapterDiv = document.createElement('div');
+    chapterDiv.classList.add('chapter');
+
+    const chapterDetails = `
+        <h3>${mangaName} - الفصل ${chapterNumber}</h3>
+        <p>عدد الصفحات: ${chapterFiles.length}</p>
+    `;
+
+    chapterDiv.innerHTML = chapterDetails;
+    chapterSection.appendChild(chapterDiv);
+
+    alert("تم رفع الفصل بنجاح!");
+});
