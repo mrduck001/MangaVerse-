@@ -1,51 +1,92 @@
-// Toggle Hamburger Menu
-function toggleMenu() {
-    const menu = document.getElementById('navMenu');
-    menu.classList.toggle('active');
+let isLoggedIn = false;
+let user = {};
+
+function showHome() {
+  hideAll();
+  document.getElementById("homePage").style.display = "block";
 }
 
-// Protect the Developer Page
-const password = "seenf0192";
-document.getElementById('devForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
-    
-    const enteredPassword = prompt("الرجاء إدخال كلمة السر:");
-    
-    if (enteredPassword === password) {
-        document.querySelector('.protected').style.display = 'block'; // إظهار الصفحة المحمية
-        alert("مرحبًا بك في صفحة المطور!");
-    } else {
-        alert("كلمة السر غير صحيحة.");
-    }
-});
+function showRegister() {
+  hideAll();
+  document.getElementById("registerPage").style.display = "block";
+}
 
-// Handle Chapter Upload
-document.getElementById('uploadForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
-    
-    const mangaName = document.getElementById('mangaName').value;
-    const chapterNumber = document.getElementById('chapterNumber').value;
-    const chapterFiles = document.getElementById('chapterFiles').files;
+function showLogin() {
+  hideAll();
+  document.getElementById("loginPage").style.display = "block";
+}
 
-    if (!mangaName || !chapterNumber || chapterFiles.length === 0) {
-        alert("الرجاء إدخال جميع البيانات.");
-        return;
-    }
+function showProfile() {
+  hideAll();
+  document.getElementById("profilePage").style.display = "block";
+}
 
-    const chapterSection = document.getElementById('chapters');
-    chapterSection.innerHTML = ''; // مسح الرسالة القديمة
-    
-    // إنشاء عنصر جديد لعرض الفصل
-    const chapterDiv = document.createElement('div');
-    chapterDiv.classList.add('chapter');
+function hideAll() {
+  const pages = document.querySelectorAll(".container > div");
+  pages.forEach(page => (page.style.display = "none"));
+}
 
-    const chapterDetails = `
-        <h3>${mangaName} - الفصل ${chapterNumber}</h3>
-        <p>عدد الصفحات: ${chapterFiles.length}</p>
-    `;
+function register() {
+  const email = document.getElementById("registerEmail").value;
+  const password = document.getElementById("registerPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  
+  if (password !== confirmPassword) {
+    alert("كلمات المرور غير متطابقة");
+    return;
+  }
 
-    chapterDiv.innerHTML = chapterDetails;
-    chapterSection.appendChild(chapterDiv);
+  user = { email, password, nickname: "مستخدم جديد" };
+  localStorage.setItem("user", JSON.stringify(user));
+  alert("تم التسجيل بنجاح!");
+  showHome();
+  updateUI();
+}
 
-    alert("تم رفع الفصل بنجاح!");
-});
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  if (storedUser && storedUser.email === email && storedUser.password === password) {
+    user = storedUser;
+    isLoggedIn = true;
+    alert("تم تسجيل الدخول بنجاح!");
+    showHome();
+    updateUI();
+  } else {
+    alert("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+  }
+}
+
+function updateUI() {
+  if (isLoggedIn) {
+    document.getElementById("profileIcon").src = "https://via.placeholder.com/40";
+    document.getElementById("profileIcon").style.display = "block";
+    document.getElementById("registerBtn").style.display = "none";
+    document.getElementById("loginBtn").style.display = "none";
+  } else {
+    document.getElementById("profileIcon").style.display = "none";
+    document.getElementById("registerBtn").style.display = "block";
+    document.getElementById("loginBtn").style.display = "block";
+  }
+}
+
+function uploadProfileImage() {
+  const file = document.getElementById("uploadImage").files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("profileImage").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function saveProfile() {
+  const nickname = document.getElementById("nickname").value;
+  user.nickname = nickname;
+  localStorage.setItem("user", JSON.stringify(user));
+  alert("تم حفظ التغييرات!");
+}
