@@ -49,7 +49,10 @@ function login() {
 
     // هنا يمكن إضافة كود للتحقق من البيانات
     // في حال تم التحقق بنجاح
+    localStorage.setItem("loggedIn", "true"); // تخزين حالة الدخول في LocalStorage
     document.getElementById("profileIcon").classList.remove("hidden");
+    document.getElementById("registerBtn").classList.add("hidden"); // إخفاء زر التسجيل
+    document.getElementById("loginBtn").classList.add("hidden"); // إخفاء زر تسجيل الدخول
     showHome();
 }
 
@@ -65,6 +68,7 @@ function register() {
     }
 
     // هنا يمكن إضافة كود للتحقق من البيانات وتخزين الحساب
+    alert("تم تسجيل الحساب بنجاح!");
     showHome();
 }
 
@@ -119,3 +123,15 @@ function submitChapter() {
     // هنا يمكنك إضافة كود لتحميل الفصل إلى الخادم أو حفظه محليًا.
     alert("تم تحميل الفصل بنجاح!");
 }
+
+// عند تحميل الصفحة، تحقق إذا كان المستخدم مسجل دخول بالفعل
+window.onload = function() {
+    if (localStorage.getItem("loggedIn") === "true") {
+        document.getElementById("profileIcon").classList.remove("hidden");
+        document.getElementById("registerBtn").classList.add("hidden"); // إخفاء زر التسجيل
+        document.getElementById("loginBtn").classList.add("hidden"); // إخفاء زر تسجيل الدخول
+        showHome();
+    } else {
+        document.getElementById("profileIcon").classList.add("hidden");
+    }
+};
