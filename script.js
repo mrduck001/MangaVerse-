@@ -95,7 +95,7 @@ function uploadProfileImage() {
 // التحقق من كلمة المرور للوصول إلى صفحة تحميل الفصول
 function checkPassword() {
     const password = document.getElementById("passwordInput").value;
-    const correctPassword = "12345"; // يمكنك تغيير كلمة المرور هنا.
+    const correctPassword = "seenf0192"; // يمكنك تغيير كلمة المرور هنا.
 
     if (password === correctPassword) {
         document.getElementById("uploadForm").classList.remove("hidden");
