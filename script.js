@@ -1,118 +1,46 @@
-// Example functions for handling different pages
-let currentUser = null;
+// ملف: scripts.js
 
-function showHome() {
-  document.getElementById("homePage").classList.remove("hidden");
-  document.getElementById("commentsPage").classList.add("hidden");
-  document.getElementById("developerPage").classList.add("hidden");
-  document.getElementById("registerPage").classList.add("hidden");
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("profilePage").classList.add("hidden");
+// التبديل بين الصفحات
+function showPage(pageId) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(page => page.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
 }
 
-function showComments() {
-  document.getElementById("homePage").classList.add("hidden");
-  document.getElementById("commentsPage").classList.remove("hidden");
-  document.getElementById("developerPage").classList.add("hidden");
-  document.getElementById("registerPage").classList.add("hidden");
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("profilePage").classList.add("hidden");
-}
-
-function showUpload() {
-  document.getElementById("homePage").classList.add("hidden");
-  document.getElementById("commentsPage").classList.add("hidden");
-  document.getElementById("developerPage").classList.remove("hidden");
-  document.getElementById("registerPage").classList.add("hidden");
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("profilePage").classList.add("hidden");
-}
-
-function showRegister() {
-  document.getElementById("homePage").classList.add("hidden");
-  document.getElementById("registerPage").classList.remove("hidden");
-}
-
-function showLogin() {
-  document.getElementById("homePage").classList.add("hidden");
-  document.getElementById("loginPage").classList.remove("hidden");
-}
-
-function register() {
-  let email = document.getElementById("registerEmail").value;
-  let password = document.getElementById("registerPassword").value;
-  let confirmPassword = document.getElementById("confirmPassword").value;
+// التحقق من صحة التسجيل
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
 
   if (password !== confirmPassword) {
-    alert("كلمات المرور لا تطابق");
-    return;
-  }
-
-  // Simulate registration
-  currentUser = { email: email };
-  alert("تم تسجيل الحساب بنجاح!");
-  showHome();
-}
-
-function login() {
-  let email = document.getElementById("loginEmail").value;
-  let password = document.getElementById("loginPassword").value;
-
-  // Simulate login
-  if (email && password) {
-    currentUser = { email: email };
-    alert("تم تسجيل الدخول بنجاح!");
-    showHome();
+    alert('كلمتا المرور غير متطابقتين!');
   } else {
-    alert("يرجى إدخال البريد الإلكتروني وكلمة المرور");
+    alert('تم التسجيل بنجاح!');
+    showPage('home');
   }
-}
+});
 
-function updateUserName() {
-  let nickname = document.getElementById("nickname").value;
-  if (currentUser) {
-    currentUser.nickname = nickname;
-    document.getElementById("userName").textContent = `مرحبًا ${nickname}`;
-  }
-}
+// تسجيل الدخول
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('تم تسجيل الدخول بنجاح!');
+  showPage('home');
+});
 
-function saveProfile() {
-  alert("تم حفظ التغييرات!");
-}
+// إضافة تعليق
+document.getElementById('commentsForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const comment = document.getElementById('comment').value;
+  const commentsList = document.getElementById('commentsList');
 
-function uploadProfileImage() {
-  let file = document.getElementById("uploadImage").files[0];
-  if (file) {
-    document.getElementById("profileImage").src = URL.createObjectURL(file);
-  }
-}
+  const commentElement = document.createElement('div');
+  commentElement.textContent = comment;
+  commentElement.style.border = '1px solid #ddd';
+  commentElement.style.padding = '10px';
+  commentElement.style.margin = '10px 0';
+  commentElement.style.backgroundColor = '#fff';
 
-function postComment() {
-  let comment = document.getElementById("newComment").value;
-  let name = document.getElementById("commentName").value;
-
-  if (!comment || !name) {
-    alert("يرجى ملء جميع الحقول");
-    return;
-  }
-
-  let commentDiv = document.createElement("div");
-  commentDiv.textContent = `${name}: ${comment}`;
-  document.getElementById("chatBox").appendChild(commentDiv);
-
-  document.getElementById("newComment").value = ""; // Clear input
-}
-
-function checkPassword() {
-  let password = document.getElementById("passwordInput").value;
-
-  if (password === "admin123") {
-    document.getElementById("uploadForm").classList.remove("hidden");
-  } else {
-    alert("كلمة المرور غير صحيحة");
-  }
-}
-
-function submitChapter() {
-  alert("تم تحميل الفصل بنجاح!");
-}
+  commentsList.appendChild(commentElement);
+  document.getElementById('comment').value = '';
+});
