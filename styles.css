@@ -1,91 +1,65 @@
-/* General Styles */
+/* ملف: styles.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  direction: rtl;
+  background-color: #f4f4f4;
 }
 
 header {
   background-color: #333;
-  color: white;
-  padding: 10px;
+  color: #fff;
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main {
+  padding: 20px;
   text-align: center;
 }
 
-header h1 {
-  margin: 0;
-}
-
-nav {
-  margin-top: 10px;
-}
-
-nav a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-nav img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-top: 5px;
-  cursor: pointer;
-}
-
-.hidden {
+.page {
   display: none;
 }
 
-.container {
-  padding: 20px;
+.page.active {
+  display: block;
 }
 
-.form-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.form-group {
-  margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-  width: 100%;
+input, textarea, button {
   padding: 10px;
-  margin: 5px 0;
+  width: 300px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 button {
   background-color: #333;
-  color: white;
-  padding: 10px;
+  color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  width: 100%;
 }
 
 button:hover {
-  background-color: #444;
-}
-
-.chat-box {
-  border: 1px solid #ccc;
-  padding: 10px;
-  height: 200px;
-  overflow-y: auto;
-  margin-bottom: 10px;
+  background-color: #555;
 }
