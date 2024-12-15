@@ -66,21 +66,31 @@
         <button class="btn" onclick="saveProfile()">حفظ التغييرات</button>
       </div>
     </div>
-  </div>
 
-  <!-- خانة تحميل الفصول (سيتم إظهارها بعد التحقق من كلمة المرور) -->
-  <div id="developerPage" class="hidden">
-    <h2>مرحبا بك في صفحة المطورين</h2>
-    <p>يرجى إدخال كلمة المرور للوصول إلى صفحة تحميل الفصول.</p>
-    <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
-    <button onclick="checkPassword()">تأكيد</button>
-    <div id="uploadForm" class="hidden">
-      <h3>تفاصيل الفصل</h3>
-      <input type="text" id="chapterName" placeholder="اسم الفصل">
-      <input type="text" id="chapterNumber" placeholder="رقم الفصل">
-      <textarea id="chapterDescription" placeholder="وصف الفصل"></textarea>
-      <input type="file" id="chapterFile">
-      <button class="btn" onclick="submitChapter()">تحميل الفصل</button>
+    <!-- خانة التعليقات (الدردشة) -->
+    <div id="commentsPage" class="hidden">
+      <h2>التعليقات</h2>
+      <div id="chatBox" class="chat-box">
+        <!-- الرسائل ستظهر هنا -->
+      </div>
+      <textarea id="newComment" placeholder="اكتب تعليقك هنا..."></textarea>
+      <button onclick="postComment()">نشر التعليق</button>
+    </div>
+
+    <!-- خانة تحميل الفصول (سيتم إظهارها بعد التحقق من كلمة المرور) -->
+    <div id="developerPage" class="hidden">
+      <h2>مرحبا بك في صفحة المطورين</h2>
+      <p>يرجى إدخال كلمة المرور للوصول إلى صفحة تحميل الفصول.</p>
+      <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
+      <button onclick="checkPassword()">تأكيد</button>
+      <div id="uploadForm" class="hidden">
+        <h3>تفاصيل الفصل</h3>
+        <input type="text" id="chapterName" placeholder="اسم الفصل">
+        <input type="text" id="chapterNumber" placeholder="رقم الفصل">
+        <textarea id="chapterDescription" placeholder="وصف الفصل"></textarea>
+        <input type="file" id="chapterFile">
+        <button class="btn" onclick="submitChapter()">تحميل الفصل</button>
+      </div>
     </div>
   </div>
 
