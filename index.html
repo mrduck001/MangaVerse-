@@ -8,103 +8,69 @@
 </head>
 <body>
   <header>
-    <h1>MangaVerse</h1>
     <nav>
-      <a href="#" onclick="showHome()">الصفحة الرئيسية</a>
-      <a href="#" onclick="showComments()">التعليقات</a>
-      <a href="#" onclick="showUpload()">تحميل الفصول</a>
-      <a href="#" id="registerBtn" onclick="showRegister()">تسجيل حساب</a>
-      <a href="#" id="loginBtn" onclick="showLogin()">تسجيل الدخول</a>
-      <img id="profileIcon" src="" alt="Profile" class="hidden" onclick="showProfile()">
+      <ul>
+        <li><a href="#" onclick="showPage('home')">الرئيسية</a></li>
+        <li><a href="#" onclick="showPage('register')">تسجيل حساب</a></li>
+        <li><a href="#" onclick="showPage('login')">تسجيل الدخول</a></li>
+        <li><a href="#" onclick="showPage('profile')">الملف الشخصي</a></li>
+        <li><a href="#" onclick="showPage('comments')">التعليقات</a></li>
+      </ul>
     </nav>
   </header>
 
-  <div class="container" id="mainContainer">
-    <div id="homePage">
-      <h2>مرحبًا <span id="userName">بك في MangaVerse</span></h2>
-      <p>تابع أحدث الفصول وتفاعل مع القراء الآخرين.</p>
-    </div>
+  <main>
+    <section id="home" class="page">
+      <h1>مرحبًا بك في MangaVerse</h1>
+      <p>اكتشف أحدث الفصول والعناوين الرائجة.</p>
+    </section>
 
-    <!-- صفحة تسجيل الحساب -->
-    <div id="registerPage" class="hidden">
-      <div class="form-container">
-        <h2>تسجيل حساب جديد</h2>
-        <div class="form-group">
-          <input type="email" id="registerEmail" placeholder="أدخل البريد الإلكتروني">
-        </div>
-        <div class="form-group">
-          <input type="password" id="registerPassword" placeholder="أدخل كلمة المرور">
-        </div>
-        <div class="form-group">
-          <input type="password" id="confirmPassword" placeholder="تأكيد كلمة المرور">
-        </div>
-        <button class="btn" onclick="register()">تسجيل</button>
-      </div>
-    </div>
+    <section id="register" class="page" style="display: none;">
+      <h2>تسجيل حساب جديد</h2>
+      <form id="registerForm">
+        <label for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">كلمة المرور:</label>
+        <input type="password" id="password" name="password" required>
+        <label for="confirmPassword">تأكيد كلمة المرور:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <button type="submit">تسجيل</button>
+      </form>
+    </section>
 
-    <!-- صفحة تسجيل الدخول -->
-    <div id="loginPage" class="hidden">
-      <div class="form-container">
-        <h2>تسجيل الدخول</h2>
-        <div class="form-group">
-          <input type="email" id="loginEmail" placeholder="أدخل البريد الإلكتروني">
-        </div>
-        <div class="form-group">
-          <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور">
-        </div>
-        <button class="btn" onclick="login()">دخول</button>
-      </div>
-    </div>
+    <section id="login" class="page" style="display: none;">
+      <h2>تسجيل الدخول</h2>
+      <form id="loginForm">
+        <label for="loginEmail">البريد الإلكتروني:</label>
+        <input type="email" id="loginEmail" name="loginEmail" required>
+        <label for="loginPassword">كلمة المرور:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+        <button type="submit">دخول</button>
+      </form>
+    </section>
 
-    <!-- صفحة الملف الشخصي -->
-    <div id="profilePage" class="hidden">
-      <h2>ملفي الشخصي</h2>
-      <div>
-        <img id="profileImage" src="" alt="Profile Image" width="100">
-        <input type="file" id="uploadImage" onchange="uploadProfileImage()">
-      </div>
-      <div>
-        <label>اسم المستخدم: </label>
-        <input type="text" id="nickname" placeholder="اسم المستخدم" onchange="updateUserName()">
-        <button class="btn" onclick="saveProfile()">حفظ التغييرات</button>
-      </div>
-    </div>
+    <section id="profile" class="page" style="display: none;">
+      <h2>الملف الشخصي</h2>
+      <form id="profileForm">
+        <label for="nickname">اسم المستخدم:</label>
+        <input type="text" id="nickname" name="nickname" required>
+        <label for="profileImage">صورة الملف الشخصي:</label>
+        <input type="file" id="profileImage" name="profileImage" accept="image/*">
+        <button type="submit">حفظ التغييرات</button>
+      </form>
+    </section>
 
-    <!-- خانة التعليقات -->
-    <div id="commentsPage" class="hidden">
+    <section id="comments" class="page" style="display: none;">
       <h2>التعليقات</h2>
-      <div id="chatBox" class="chat-box">
-        <!-- الرسائل ستظهر هنا -->
-      </div>
-      <div>
-        <label>اختر اسمك:</label>
-        <input type="text" id="commentName" placeholder="اسم المستخدم" onchange="updateUserName()">
-      </div>
-      <div>
-        <label>اختر صورة:</label>
-        <input type="file" id="commentImage" onchange="updateProfileImage()">
-      </div>
-      <textarea id="newComment" placeholder="اكتب تعليقك هنا..."></textarea>
-      <button onclick="postComment()">نشر التعليق</button>
-    </div>
+      <div id="commentsList"></div>
+      <form id="commentsForm">
+        <label for="comment">اكتب تعليقًا:</label>
+        <textarea id="comment" name="comment" required></textarea>
+        <button type="submit">إضافة تعليق</button>
+      </form>
+    </section>
+  </main>
 
-    <!-- خانة تحميل الفصول -->
-    <div id="developerPage" class="hidden">
-      <h2>مرحبا بك في صفحة المطورين</h2>
-      <p>يرجى إدخال كلمة المرور للوصول إلى صفحة تحميل الفصول.</p>
-      <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
-      <button onclick="checkPassword()">تأكيد</button>
-      <div id="uploadForm" class="hidden">
-        <h3>تفاصيل الفصل</h3>
-        <input type="text" id="chapterName" placeholder="اسم الفصل">
-        <input type="text" id="chapterNumber" placeholder="رقم الفصل">
-        <textarea id="chapterDescription" placeholder="وصف الفصل"></textarea>
-        <input type="file" id="chapterFile">
-        <button class="btn" onclick="submitChapter()">تحميل الفصل</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
