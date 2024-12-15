@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- شريط التنقل -->
   <header>
     <nav>
       <ul>
@@ -15,18 +16,23 @@
         <li><a href="#" onclick="showPage('login')">تسجيل الدخول</a></li>
         <li><a href="#" onclick="showPage('profile')">الملف الشخصي</a></li>
         <li><a href="#" onclick="showPage('comments')">التعليقات</a></li>
+        <li><a href="#" onclick="showPage('developer')">المطورين</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- المحتوى الرئيسي -->
   <main>
     <!-- الصفحة الرئيسية -->
     <section id="home" class="page active">
       <h1>مرحبًا بك في MangaVerse</h1>
-      <p>اكتشف أحدث الفصول والعناوين الرائجة.</p>
+      <p>اكتشف أحدث الفصول والعناوين الرائجة هنا.</p>
+      <div id="featured">
+        <!-- يتم تحميل الفصول ديناميكيًا -->
+      </div>
     </section>
 
-    <!-- تسجيل حساب جديد -->
+    <!-- تسجيل حساب -->
     <section id="register" class="page">
       <h2>تسجيل حساب جديد</h2>
       <form id="registerForm">
@@ -67,15 +73,38 @@
     <!-- التعليقات -->
     <section id="comments" class="page">
       <h2>التعليقات</h2>
-      <div id="commentsList"></div>
+      <div id="commentsList">
+        <!-- يتم تحميل التعليقات هنا -->
+      </div>
       <form id="commentsForm">
         <label for="comment">اكتب تعليقًا:</label>
         <textarea id="comment" name="comment" required></textarea>
+        <label for="commentImage">إضافة صورة:</label>
+        <input type="file" id="commentImage" name="commentImage" accept="image/*">
         <button type="submit">إضافة تعليق</button>
+      </form>
+    </section>
+
+    <!-- صفحة المطورين -->
+    <section id="developer" class="page">
+      <h2>تحميل الفصول الجديدة</h2>
+      <form id="developerForm">
+        <label for="chapterName">اسم الفصل:</label>
+        <input type="text" id="chapterName" name="chapterName" required>
+        <label for="chapterNumber">رقم الفصل:</label>
+        <input type="number" id="chapterNumber" name="chapterNumber" required>
+        <label for="chapterDescription">وصف الفصل:</label>
+        <textarea id="chapterDescription" name="chapterDescription" required></textarea>
+        <label for="chapterFile">ملف الفصل:</label>
+        <input type="file" id="chapterFile" name="chapterFile" accept=".pdf,.zip" required>
+        <label for="developerPassword">كلمة مرور المطورين:</label>
+        <input type="password" id="developerPassword" name="developerPassword" required>
+        <button type="submit">تحميل</button>
       </form>
     </section>
   </main>
 
+  <!-- جافا سكريبت -->
   <script src="scripts.js"></script>
 </body>
 </html>
