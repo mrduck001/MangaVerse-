@@ -2,18 +2,59 @@
 function showHome() {
     hideAllPages();
     document.getElementById("homePage").classList.remove("hidden");
+
+    // تحديث النص في الصفحة الرئيسية إذا تم اختيار اسم المستخدم
+    const nickname = localStorage.getItem("nickname") || "ضيف";
+    document.getElementById("homePage").innerHTML = `<h2>مرحبًا, ${nickname}</h2><p>تابع أحدث الفصول وتفاعل مع القراء الآخرين.</p>`;
 }
 
 // إظهار صفحة التعليقات
 function showComments() {
     hideAllPages();
     document.getElementById("commentsPage").classList.remove("hidden");
+
+    // التحقق من إذا كان المستخدم قد اختار اسم وصورة
+    const nickname = localStorage.getItem("nickname") || "ضيف";
+    const profileImage = localStorage.getItem("profileImage") || "default-avatar.jpg";  // صورة افتراضية إذا لم يختارها المستخدم
+
+    const commentsSection = document.getElementById("commentsSection");
+    commentsSection.innerHTML = '';  // مسح التعليقات السابقة
+
+    // إضافة واجهة إرسال رسالة
+    const messageBox = `
+        <div class="message-box">
+            <input type="text" id="commentInput" placeholder="أكتب تعليقك هنا...">
+            <button onclick="sendMessage()">إرسال</button>
+        </div>
+    `;
+    commentsSection.innerHTML += messageBox;
 }
 
-// إظهار صفحة تحميل الفصول
-function showUpload() {
-    hideAllPages();
-    document.getElementById("developerPage").classList.remove("hidden");
+// إرسال الرسالة في صفحة التعليقات
+function sendMessage() {
+    const commentInput = document.getElementById("commentInput").value;
+    if (!commentInput.trim()) {
+        alert("يرجى كتابة رسالة.");
+        return;
+    }
+
+    const nickname = localStorage.getItem("nickname") || "ضيف";
+    const profileImage = localStorage.getItem("profileImage") || "default-avatar.jpg";  // صورة افتراضية إذا لم يختارها المستخدم
+
+    const comment = `
+        <div class="comment">
+            <img src="${profileImage}" alt="Profile" class="comment-avatar">
+            <div class="comment-content">
+                <strong>${nickname}</strong>
+                <p>${commentInput}</p>
+            </div>
+        </div>
+    `;
+
+    const commentsSection = document.getElementById("commentsSection");
+    commentsSection.innerHTML += comment;  // إضافة التعليق الجديد
+
+    document.getElementById("commentInput").value = '';  // مسح خانة الإدخال بعد الإرسال
 }
 
 // إظهار صفحة تسجيل الدخول
@@ -32,44 +73,13 @@ function showRegister() {
 function showProfile() {
     hideAllPages();
     document.getElementById("profilePage").classList.remove("hidden");
-}
+    
+    // تحديث الصفحة وفقًا للاسم والصورة المختارة
+    const nickname = localStorage.getItem("nickname") || "ضيف";
+    const profileImage = localStorage.getItem("profileImage") || "default-avatar.jpg";
 
-// إخفاء جميع الصفحات
-function hideAllPages() {
-    const pages = document.querySelectorAll(".container > div");
-    pages.forEach(page => {
-        page.classList.add("hidden");
-    });
-}
-
-// تسجيل الدخول
-function login() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
-    // هنا يمكن إضافة كود للتحقق من البيانات
-    // في حال تم التحقق بنجاح
-    localStorage.setItem("loggedIn", "true"); // تخزين حالة الدخول في LocalStorage
-    document.getElementById("profileIcon").classList.remove("hidden");
-    document.getElementById("registerBtn").classList.add("hidden"); // إخفاء زر التسجيل
-    document.getElementById("loginBtn").classList.add("hidden"); // إخفاء زر تسجيل الدخول
-    showHome();
-}
-
-// تسجيل حساب جديد
-function register() {
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if (password !== confirmPassword) {
-        alert("كلمات المرور غير متطابقة");
-        return;
-    }
-
-    // هنا يمكن إضافة كود للتحقق من البيانات وتخزين الحساب
-    alert("تم تسجيل الحساب بنجاح!");
-    showHome();
+    document.getElementById("profileImage").src = profileImage;
+    document.getElementById("nickname").value = nickname;
 }
 
 // حفظ التغييرات في ملف التعريف
@@ -77,8 +87,12 @@ function saveProfile() {
     const nickname = document.getElementById("nickname").value;
     const profileImage = document.getElementById("profileImage").src;
 
-    // يمكنك هنا إضافة الكود لحفظ التغييرات على النيك نيم والصورة.
+    // حفظ التغييرات في LocalStorage
+    localStorage.setItem("nickname", nickname);
+    localStorage.setItem("profileImage", profileImage);
+
     alert("تم حفظ التغييرات بنجاح!");
+    showHome();  // العودة إلى الصفحة الرئيسية بعد الحفظ
 }
 
 // رفع الصورة الشخصية
