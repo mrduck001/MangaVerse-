@@ -1,62 +1,76 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset Styles */
+* {
     margin: 0;
     padding: 0;
-    text-align: center;
+    box-sizing: border-box;
+}
+
+/* General Body */
+body {
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
+    color: #333;
 }
 
+/* Header and Navigation */
 header {
-    background-color: #333;
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(to right, #007BFF, #00BFFF);
     color: white;
-    padding: 20px 0;
 }
 
-header h1 {
-    margin: 0;
+.hero h1 {
+    font-size: 3rem;
 }
 
-main {
-    padding: 20px;
-}
-
-.cover-image {
-    max-width: 100%;
-    height: auto;
+.hero p {
+    font-size: 1.2rem;
     margin: 20px 0;
 }
 
-.btn {
-    display: inline-block;
-    background-color: #007BFF;
-    color: white;
+.hero .btn {
+    background: #fff;
+    color: #007BFF;
     padding: 10px 20px;
     text-decoration: none;
+    font-size: 1.1rem;
     border-radius: 5px;
-    margin-top: 20px;
+    transition: background 0.3s;
 }
 
-.btn:hover {
-    background-color: #0056b3;
-}
-
-.chapters-list {
-    list-style: none;
-    padding: 0;
-}
-
-.chapters-list li {
-    margin: 10px 0;
-}
-
-.chapters-list a {
-    text-decoration: none;
-    color: #007BFF;
-}
-
-footer {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #333;
+.hero .btn:hover {
+    background: #007BFF;
     color: white;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
 }
